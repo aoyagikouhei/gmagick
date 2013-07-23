@@ -1,0 +1,1 @@
+gmagick.o: gmutil.c gmagick.c gmagick.h
