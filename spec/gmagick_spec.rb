@@ -7,6 +7,12 @@ describe Gmagick do
 end
 
 describe Gmagick::Image do
+  after do
+    if File.exists?(DICE2_PATH)
+      File.delete(DICE2_PATH)
+    end
+  end
+
   it 'initialize and read' do
     image = Gmagick::Image.new(DICE_PATH)
     expect(image.width).to eq(200)
@@ -81,8 +87,6 @@ describe Gmagick::Image do
     proc do 
       image2.write(1)
     end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
-
-    File.delete(DICE2_PATH)
   end
 
   it 'resize' do

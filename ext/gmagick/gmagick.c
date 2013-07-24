@@ -51,7 +51,10 @@ gmi_image_alloc(VALUE klass) {
   return Data_Wrap_Struct(klass, 0, gmi_image_free, gmImage);
 }
 
-VALUE 
+/**
+
+*/
+VALUE
 gmi_initialize(int argc, VALUE *argv, VALUE self) {
   if (argc > 1) {
     rb_raise(rb_eArgError, "wrong number of arguments (%d for 0 or 1)", argc);

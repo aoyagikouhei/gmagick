@@ -3,6 +3,11 @@ gem_helper = Bundler::GemHelper.new(Dir.pwd)
 gem_helper.install
 gem_spec = gem_helper.gemspec
 
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_files.include("lib/**/*.rb", "ext/gmagick/*.c")
+end
+
 require 'rake/clean'
 
 require 'rake/testtask'
