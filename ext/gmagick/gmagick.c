@@ -51,9 +51,27 @@ gmi_image_alloc(VALUE klass) {
   return Data_Wrap_Struct(klass, 0, gmi_image_free, gmImage);
 }
 
-/**
-
-*/
+/*
+ * Document-method: new
+ *
+ * call-seq:
+ *   Gmagick::Image.new -> image
+ *   Gmagick::Image.new(path) -> image
+ *
+ * Create a GraphicsMagick Object
+ *
+ * [+path+]
+ *   image file path
+ *
+ * Examples:
+ *
+ *   # Make image object
+ *   Gmagick::Image.new
+ *
+ *   # Make image object with path
+ *   Gmagick::Image.new(path)
+ *
+ */
 VALUE
 gmi_initialize(int argc, VALUE *argv, VALUE self) {
   if (argc > 1) {
