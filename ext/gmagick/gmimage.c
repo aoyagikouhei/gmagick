@@ -1,21 +1,21 @@
 #include "gmagick.h"
 
 void 
-gmi_image_free(GmImage *gmImage)
+gmi_free(GmImage *ptr)
 {
-  if (gmImage != (GmImage *)NULL) {
-    if (gmImage->wand != (MagickWand *)NULL) {
-      DestroyMagickWand(gmImage->wand);
+  if (ptr != (GmImage *)NULL) {
+    if (ptr->wand != (MagickWand *)NULL) {
+      DestroyMagickWand(ptr->wand);
     }
-    ruby_xfree(gmImage);
+    ruby_xfree(ptr);
   }
 }
 
 VALUE 
-gmi_image_alloc(VALUE klass) {
-  GmImage *gmImage = ALLOC(GmImage);
-  gmImage->wand = (MagickWand *)NULL;
-  return Data_Wrap_Struct(klass, 0, gmi_image_free, gmImage);
+gmi_alloc(VALUE klass) {
+  GmImage *ptr = ALLOC(GmImage);
+  ptr->wand = (MagickWand *)NULL;
+  return Data_Wrap_Struct(klass, 0, gmi_free, ptr);
 }
 
 /*
@@ -152,3 +152,12 @@ gmi_resize_image(int argc, VALUE *argv, VALUE self) {
   return Qnil;
 }
 
+VALUE
+gmi_rotate_image(VALUE self, VALUE pixel_arg, VALUE degree_arg) {
+  MagickWand* image = gmu_get_image_wand(self);
+  PixelWand* pixel =  gmu_get_pixel_wand(pixel_arg);
+  double degree = NUM2DBL(degree_arg);
+  MagickPassFail status = MagickRotateImage(image, pixel, degree);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}

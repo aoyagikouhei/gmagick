@@ -7,9 +7,11 @@ describe Gmagick do
 end
 
 describe Gmagick::Image do
-  after do
-    if File.exists?(DICE2_PATH)
-      File.delete(DICE2_PATH)
+  before(:all) do
+    [DICE2_PATH, DICE_ROTATE_PATH].each do |path|
+      if File.exists?(path)
+        File.delete(path)
+      end
     end
   end
 
@@ -106,5 +108,29 @@ describe Gmagick::Image do
     proc do
       image.resize("1", "2")
     end.should raise_error(TypeError, "no implicit conversion of String into Integer")
+  end
+
+  it 'rotate' do
+    image = Gmagick::Image.new(DICE_PATH)
+    pixel = Gmagick::Pixel.new("#00FF00")
+    image.rotate(pixel, 30)
+    image.write(DICE_ROTATE_PATH)
+  end
+end
+
+describe Gmagick::Pixel do
+  it 'initialize' do
+    pixel = Gmagick::Pixel.new
+    expect(pixel).not_to be_nil
+    pixel = Gmagick::Pixel.new("#000000")
+    expect(pixel).not_to be_nil
+
+    proc do
+      pixel = Gmagick::Pixel.new(1, 2)
+    end.should raise_error(ArgumentError, "wrong number of arguments (2 for 0 or 1)")
+
+    proc do 
+      pixel = Gmagick::Pixel.new(1)
+    end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
   end
 end

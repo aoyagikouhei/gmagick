@@ -13,9 +13,9 @@ gum_check_image_exception(MagickWand *wand, MagickPassFail status) {
 
 MagickWand*
 gmu_get_image_wand(VALUE self) {
-  GmImage *gmImage;
-  Data_Get_Struct(self, GmImage, gmImage);
-  return gmImage->wand;
+  GmImage *ptr;
+  Data_Get_Struct(self, GmImage, ptr);
+  return ptr->wand;
 }
 
 char* 
@@ -25,4 +25,18 @@ gmu_str2cstr(VALUE src, long *length) {
     *length = RSTRING_LEN(src);
   }
   return RSTRING_PTR(src);
+}
+
+PixelWand* 
+gmu_get_pixel_wand(VALUE self) {
+  GmPixel *ptr;
+  Data_Get_Struct(self, GmPixel, ptr);
+  return ptr->wand;
+}
+
+DrawingWand*
+gmu_get_drawing_wand(VALUE self) {
+  GmDrawing *ptr;
+  Data_Get_Struct(self, GmDrawing, ptr);
+  return ptr->wand;
 }
