@@ -1,7 +1,7 @@
 #include "gmagick.h"
 
 void 
-gmu_check_exception(MagickWand* wand, MagickPassFail status) {
+gmu_check_exception(MagickWand *wand, MagickPassFail status) {
   if (status != MagickPass) {
     char *description;
     ExceptionType severity;

@@ -4,6 +4,28 @@ describe Gmagick do
   it 'should have a version number' do
     expect(Gmagick::VERSION).not_to be_nil
   end
+end
+
+describe Gmagick::Image do
+  it 'initialize and read' do
+    image = Gmagick::Image.new(DICE_PATH)
+    expect(image.width).to eq(200)
+    expect(image.height).to eq(150)
+    expect(image.format).to eq("PNG")
+    expect(image.count).to eq(1)
+
+    proc do
+      image = Gmagick::Image.new(DICE_PATH, 1)
+    end.should raise_error(ArgumentError, "wrong number of arguments (2 for 0 or 1)")
+
+    proc do 
+      image = Gmagick::Image.new(1)
+    end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
+
+    proc do
+      image = Gmagick::Image.new(DICE_PATH+"a")
+    end.should raise_error(RuntimeError, /^Unable to open file/)
+  end
 
   it 'read png image' do
     image = Gmagick::Image.new
@@ -40,5 +62,45 @@ describe Gmagick do
     expect(image2.width).to eq(200)
     expect(image2.height).to eq(150)
     expect(image2.format).to eq('PNG')
+  end
+
+  it 'read write file' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.write(DICE2_PATH)
+    image2 = Gmagick::Image.new(DICE2_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+    image2.write
+
+    proc do
+      image2.write(DICE2_PATH, 1)
+    end.should raise_error(ArgumentError, "wrong number of arguments (2 for 0 or 1)")
+
+    proc do 
+      image2.write(1)
+    end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
+
+    File.delete(DICE2_PATH)
+  end
+
+  it 'resize' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.resize(100, 75)
+    image.write(DICE2_PATH)
+    image2 = Gmagick::Image.new(DICE2_PATH)
+    expect(image2.width).to eq(100)
+    expect(image2.height).to eq(75)
+    expect(image2.format).to eq('PNG')
+    expect(image2.count).to eq(1)
+
+    proc do
+      image.resize(1, 2, 3, 4, 5)
+    end.should raise_error(ArgumentError, "wrong number of arguments (5 for 2 or 4)")
+
+    proc do
+      image.resize("1", "2")
+    end.should raise_error(TypeError, "no implicit conversion of String into Integer")
   end
 end
