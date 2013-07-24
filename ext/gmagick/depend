@@ -1,1 +1,1 @@
-gmagick.o: gmutil.c gmagick.c gmagick.h
+gmagick.o: gmain.c gmutil.c gmagick.c gmagick.h

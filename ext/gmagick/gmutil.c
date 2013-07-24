@@ -1,7 +1,7 @@
 #include "gmagick.h"
 
 void 
-gmu_check_exception(MagickWand *wand, MagickPassFail status) {
+gum_check_image_exception(MagickWand *wand, MagickPassFail status) {
   if (status != MagickPass) {
     char *description;
     ExceptionType severity;
@@ -12,7 +12,7 @@ gmu_check_exception(MagickWand *wand, MagickPassFail status) {
 }
 
 MagickWand*
-gmu_get_wand(VALUE self) {
+gmu_get_image_wand(VALUE self) {
   GmImage *gmImage;
   Data_Get_Struct(self, GmImage, gmImage);
   return gmImage->wand;
