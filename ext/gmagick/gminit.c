@@ -5,6 +5,7 @@ Init_gmagickn(){
   VALUE mGmagick;
   VALUE cImage;
   VALUE cPixel;
+  VALUE cDrawing;
 
   InitializeMagick(NULL);
 
@@ -27,4 +28,8 @@ Init_gmagickn(){
   rb_define_alloc_func(cPixel, gmp_alloc);
   rb_define_private_method(cPixel, "initialize", gmp_initialize, -1);
   rb_define_method(cPixel, "set_color", gmp_set_color, 1);
+
+  cDrawing = rb_define_class_under(mGmagick, "Drawing", rb_cObject);
+  rb_define_alloc_func(cDrawing, gmd_alloc);
+  rb_define_private_method(cDrawing, "initialize", gmd_initialize, 0);
 }

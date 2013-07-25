@@ -1,1 +1,1 @@
-gmagick.o: gmain.c gmutil.c gmimage.c gmpixel.c gmagick.h
+gmagick.o: gminit.c gmutil.c gmimage.c gmpixel.c gmdrawing.c gmagick.h

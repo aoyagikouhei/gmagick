@@ -8,10 +8,8 @@ end
 
 describe Gmagick::Image do
   before(:all) do
-    [DICE2_PATH, DICE_ROTATE_PATH].each do |path|
-      if File.exists?(path)
-        File.delete(path)
-      end
+    Dir::glob(DST_PATH + "/*.{jpg,png,gif}").each do |f|
+      File.delete(f)
     end
   end
 
@@ -132,5 +130,11 @@ describe Gmagick::Pixel do
     proc do 
       pixel = Gmagick::Pixel.new(1)
     end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
+  end
+end
+
+describe Gmagick::Drawing do
+  it 'initialize' do
+    drawing = Gmagick::Drawing.new
   end
 end

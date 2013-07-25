@@ -36,3 +36,6 @@ VALUE gmi_rotate_image(VALUE self, VALUE pixel_arg, VALUE degree_arg);
 VALUE gmp_alloc(VALUE klass);
 VALUE gmp_initialize(int argc, VALUE *argv, VALUE self);
 VALUE gmp_set_color(VALUE self, VALUE color_arg);
+
+VALUE gmd_alloc(VALUE klass);
+VALUE gmd_initialize(VALUE self);
