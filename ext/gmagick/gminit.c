@@ -23,6 +23,7 @@ Init_gmagickn(){
   rb_define_method(cImage, "write_blob", gmi_write_image_blob, 0);
   rb_define_method(cImage, "resize", gmi_resize_image, -1);
   rb_define_method(cImage, "rotate", gmi_rotate_image, 2);
+  rb_define_method(cImage, "draw", gmi_draw_image, 1);
 
   cPixel = rb_define_class_under(mGmagick, "Pixel", rb_cObject);
   rb_define_alloc_func(cPixel, gmp_alloc);

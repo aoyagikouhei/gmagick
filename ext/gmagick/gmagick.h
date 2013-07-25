@@ -32,6 +32,7 @@ VALUE gmi_read_image_blob(VALUE self, VALUE blob_arg);
 VALUE gmi_write_image_blob(VALUE self);
 VALUE gmi_resize_image(int argc, VALUE *argv, VALUE self);
 VALUE gmi_rotate_image(VALUE self, VALUE pixel_arg, VALUE degree_arg);
+VALUE gmi_draw_image(VALUE self, VALUE drawing_arg);
 
 VALUE gmp_alloc(VALUE klass);
 VALUE gmp_initialize(int argc, VALUE *argv, VALUE self);

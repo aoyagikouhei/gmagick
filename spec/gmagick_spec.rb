@@ -114,6 +114,14 @@ describe Gmagick::Image do
     image.rotate(pixel, 30)
     image.write(DICE_ROTATE_PATH)
   end
+
+  it 'draw' do
+    pending('after drawing implament')
+    image = Gmagick::Image.new(DICE_PATH)
+    drawing = Gmagick::Drawing.new
+    image.draw(drawing)
+    image.write(DICE_DRAW_PATH)
+  end
 end
 
 describe Gmagick::Pixel do

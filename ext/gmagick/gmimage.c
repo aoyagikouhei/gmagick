@@ -161,3 +161,13 @@ gmi_rotate_image(VALUE self, VALUE pixel_arg, VALUE degree_arg) {
   gum_check_image_exception(image, status);
   return Qnil;
 }
+
+VALUE 
+gmi_draw_image(VALUE self, VALUE drawing_arg)
+{
+  MagickWand* image = gmu_get_image_wand(self);
+  DrawingWand* drawing =  gmu_get_drawing_wand(drawing_arg);
+  MagickPassFail status = MagickDrawImage(image, drawing);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
