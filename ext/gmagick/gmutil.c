@@ -40,3 +40,23 @@ gmu_get_drawing_wand(VALUE self) {
   Data_Get_Struct(self, GmDrawing, ptr);
   return ptr->wand;
 }
+
+PixelWand* 
+gmu_get_pixel_string_or_pixel(VALUE color_arg) {
+  PixelWand *pixel;
+  if (T_STRING == TYPE(color_arg)) {
+    pixel = NewPixelWand();
+    char *color = StringValuePtr(color_arg);
+    PixelSetColor(pixel, color);
+  } else {
+    pixel = gmu_get_pixel_wand(color_arg);
+  }
+  return pixel;
+}
+
+void 
+gmu_clear_pixel_string_or_pixel(VALUE pixel_arg, PixelWand* pixel) {
+  if (T_STRING == TYPE(pixel_arg)) {
+    DestroyPixelWand(pixel);
+  }
+}

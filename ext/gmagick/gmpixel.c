@@ -56,7 +56,13 @@ gmp_initialize(int argc, VALUE *argv, VALUE self) {
 VALUE
 gmp_set_color(VALUE self, VALUE color_arg) {
   char *color = StringValuePtr(color_arg);
-  PixelWand *wand = gmu_get_pixel_wand(self);
-  PixelSetColor(wand, color);
+  PixelWand *pixel = gmu_get_pixel_wand(self);
+  PixelSetColor(pixel, color);
   return Qnil;
+}
+
+VALUE
+gmp_get_color(VALUE self) {
+  PixelWand *pixel = gmu_get_pixel_wand(self);
+  return rb_str_new2(PixelGetColorAsString(pixel));
 }

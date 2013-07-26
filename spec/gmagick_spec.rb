@@ -40,6 +40,11 @@ describe Gmagick::Image do
     expect(image.height).to eq(150)
     expect(image.format).to eq("PNG")
     expect(image.count).to eq(1)
+    expect(image.depth).to eq(8)
+    expect(image.colors).to eq(7127)
+    resolution = image.resolution
+    expect(resolution[0]).to eq(72.0)
+    expect(resolution[1]).to eq(72.0)
   end
 
   it 'read jpeg image' do
@@ -108,19 +113,91 @@ describe Gmagick::Image do
     end.should raise_error(TypeError, "no implicit conversion of String into Integer")
   end
 
+  it 'resample' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.resample(400, 400)
+    image.write(DICE_RESAMPLE_PATH)
+
+    image2 = Gmagick::Image.new(DICE_RESAMPLE_PATH)
+    expect(image2.width).to eq(1111)
+    expect(image2.height).to eq(833)
+    expect(image2.format).to eq('PNG')
+    expect(image2.count).to eq(1)
+
+    proc do
+      image.resample(1, 2, 3, 4, 5)
+    end.should raise_error(ArgumentError, "wrong number of arguments (5 for 2 or 4)")
+
+    proc do
+      image.resample("1", "2")
+    end.should raise_error(TypeError, "no implicit conversion of String into Integer")
+  end
+
   it 'rotate' do
     image = Gmagick::Image.new(DICE_PATH)
     pixel = Gmagick::Pixel.new("#00FF00")
     image.rotate(pixel, 30)
     image.write(DICE_ROTATE_PATH)
+
+    image = Gmagick::Image.new(DICE_PATH)
+    image.rotate("red", 30)
+    image.write(DICE_ROTATE2_PATH)
   end
 
   it 'draw' do
-    pending('after drawing implament')
     image = Gmagick::Image.new(DICE_PATH)
     drawing = Gmagick::Drawing.new
+    pixel = Gmagick::Pixel.new("white")
+    drawing.fill_color = pixel
+    drawing.stroke_color = "black"
+    drawing.stroke_width = 3.0
+    drawing.round_rectangle(10, 10, 100, 100, 100, 100)
     image.draw(drawing)
     image.write(DICE_DRAW_PATH)
+  end
+
+  it 'flip' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.flip
+    image.write(DICE_FLIP_PATH)
+    image2 = Gmagick::Image.new(DICE_FLIP_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'flop' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.flop
+    image.write(DICE_FLOP_PATH)
+    image2 = Gmagick::Image.new(DICE_FLOP_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'crop' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.crop(50, 50, 30, 30)
+    image.write(DICE_CROP_PATH)
+    image2 = Gmagick::Image.new(DICE_CROP_PATH)
+    expect(image2.width).to eq(50)
+    expect(image2.height).to eq(50)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'set_format' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.format = "JPEG"
+    image2 = Gmagick::Image.new
+    image2.read_blob(image.write_blob)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("JPEG")
+    expect(image2.count).to eq(1)
   end
 end
 
@@ -130,6 +207,9 @@ describe Gmagick::Pixel do
     expect(pixel).not_to be_nil
     pixel = Gmagick::Pixel.new("#000000")
     expect(pixel).not_to be_nil
+    expect(pixel.color).to eq("0,0,0")
+    pixel.color = "red"
+    expect(pixel.color).to eq("255,0,0")
 
     proc do
       pixel = Gmagick::Pixel.new(1, 2)

@@ -104,6 +104,31 @@ gmi_get_format(VALUE self) {
   return rb_str_new2(MagickGetImageFormat(wand));
 }
 
+VALUE 
+gmi_get_depth(VALUE self) {
+  MagickWand *wand = gmu_get_image_wand(self);
+  return LONG2NUM(MagickGetImageDepth(wand));
+}
+
+VALUE 
+gmi_get_colors(VALUE self) {
+  MagickWand *wand = gmu_get_image_wand(self);
+  return LONG2NUM(MagickGetImageColors(wand));
+}
+
+VALUE 
+gmi_get_resolution(VALUE self) {
+  MagickWand *wand = gmu_get_image_wand(self);
+  double x;
+  double y;
+  MagickPassFail status = MagickGetImageResolution(wand, &x, &y);
+  gum_check_image_exception(wand, status);
+  VALUE ary = rb_ary_new2(2);
+  rb_ary_push(ary, DBL2NUM(x));
+  rb_ary_push(ary, DBL2NUM(y));
+  return ary;
+}
+
 VALUE
 gmi_get_number_images(VALUE self) {
   MagickWand *wand = gmu_get_image_wand(self);
@@ -125,19 +150,19 @@ gmi_read_image_blob(VALUE self, VALUE blob_arg) {
 
 VALUE
 gmi_write_image_blob(VALUE self) {
-  MagickWand *wand = gmu_get_image_wand(self);
+  MagickWand *image = gmu_get_image_wand(self);
   unsigned char *blob;
   size_t length;
   VALUE result;
 
-  blob = MagickWriteImageBlob(wand, &length);
+  blob = MagickWriteImageBlob(image, &length);
   result = rb_str_new((char *)blob, (long)length);
   MagickRelinquishMemory(blob);
   return result;
 }
 
 VALUE 
-gmi_resize_image(int argc, VALUE *argv, VALUE self) {
+gmi_resize(int argc, VALUE *argv, VALUE self) {
   if (argc < 2 || argc > 4) {
     rb_raise(rb_eArgError, "wrong number of arguments (%d for 2 or 4)", argc);
   }
@@ -146,28 +171,84 @@ gmi_resize_image(int argc, VALUE *argv, VALUE self) {
   int filter = argc > 2 ? NUM2INT(argv[2]) : 0;
   double blur = argc > 3 ? NUM2DBL(argv[3]) : 1.0;
 
-  MagickWand *wand = gmu_get_image_wand(self);
-  MagickPassFail status = MagickResizeImage(wand, width, height, filter, blur);
-  gum_check_image_exception(wand, status);
+  MagickWand *image = gmu_get_image_wand(self);
+  MagickPassFail status = MagickResizeImage(image, width, height, filter, blur);
+  gum_check_image_exception(image, status);
   return Qnil;
 }
 
 VALUE
-gmi_rotate_image(VALUE self, VALUE pixel_arg, VALUE degree_arg) {
-  MagickWand* image = gmu_get_image_wand(self);
-  PixelWand* pixel =  gmu_get_pixel_wand(pixel_arg);
+gmi_rotate(VALUE self, VALUE pixel_arg, VALUE degree_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  PixelWand *pixel = gmu_get_pixel_string_or_pixel(pixel_arg);
   double degree = NUM2DBL(degree_arg);
   MagickPassFail status = MagickRotateImage(image, pixel, degree);
+  gmu_clear_pixel_string_or_pixel(pixel_arg, pixel);
   gum_check_image_exception(image, status);
   return Qnil;
 }
 
 VALUE 
-gmi_draw_image(VALUE self, VALUE drawing_arg)
+gmi_draw(VALUE self, VALUE drawing_arg)
 {
-  MagickWand* image = gmu_get_image_wand(self);
-  DrawingWand* drawing =  gmu_get_drawing_wand(drawing_arg);
+  MagickWand *image = gmu_get_image_wand(self);
+  DrawingWand *drawing =  gmu_get_drawing_wand(drawing_arg);
   MagickPassFail status = MagickDrawImage(image, drawing);
   gum_check_image_exception(image, status);
   return Qnil;
 }
+
+VALUE 
+gmi_resample(int argc, VALUE *argv, VALUE self) {
+  if (argc < 2 || argc > 4) {
+    rb_raise(rb_eArgError, "wrong number of arguments (%d for 2 or 4)", argc);
+  }
+  long x = NUM2LONG(argv[0]);
+  long y = NUM2LONG(argv[1]);
+  int filter = argc > 2 ? NUM2INT(argv[2]) : 0;
+  double blur = argc > 3 ? NUM2DBL(argv[3]) : 1.0;
+
+  MagickWand *image = gmu_get_image_wand(self);
+  MagickPassFail status = MagickResampleImage(image, x, y, filter, blur);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE 
+gmi_flip(VALUE self) {
+  MagickWand *image = gmu_get_image_wand(self);
+  MagickPassFail status = MagickFlipImage(image);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE 
+gmi_flop(VALUE self) {
+  MagickWand *image = gmu_get_image_wand(self);
+  MagickPassFail status = MagickFlopImage(image);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_crop(VALUE self, VALUE width_arg, VALUE height_arg, VALUE x_arg, VALUE y_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  unsigned long width = NUM2LONG(width_arg);
+  unsigned long height = NUM2LONG(height_arg);
+  long x = NUM2LONG(x_arg);
+  long y = NUM2LONG(y_arg);
+  MagickPassFail status = MagickCropImage(image, width, height, x, y);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_set_format(VALUE self, VALUE format_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  char *format = StringValuePtr(format_arg);
+  MagickPassFail status = MagickSetImageFormat(image, format);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+
