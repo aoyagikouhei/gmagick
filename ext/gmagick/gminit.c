@@ -38,6 +38,9 @@ Init_gmagickn(){
   rb_define_method(cImage, "swirl", gmi_swirl, 1);
   rb_define_method(cImage, "charcoal", gmi_charcoal, 2);
   rb_define_method(cImage, "oil_paint", gmi_oil_paint, 1);
+  rb_define_method(cImage, "cycle_colormap", gmi_cycle_colormap, 1);
+  rb_define_method(cImage, "solarize", gmi_solarize, 1);
+  rb_define_method(cImage, "shear", gmi_shear, 3);
 
   cPixel = rb_define_class_under(mGmagick, "Pixel", rb_cObject);
   rb_define_alloc_func(cPixel, gmp_alloc);

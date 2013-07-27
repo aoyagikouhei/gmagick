@@ -49,7 +49,9 @@ VALUE gmi_blur(VALUE self, VALUE radius_arg, VALUE sigma_arg);
 VALUE gmi_swirl(VALUE self, VALUE degree_arg);
 VALUE gmi_charcoal(VALUE self, VALUE radius_arg, VALUE sigma_arg);
 VALUE gmi_oil_paint(VALUE self, VALUE radius_arg);
-
+VALUE gmi_cycle_colormap(VALUE self, VALUE displace_arg);
+VALUE gmi_solarize(VALUE self, VALUE threshold_arg);
+VALUE gmi_shear(VALUE self, VALUE pixel_arg, VALUE x_arg, VALUE y_arg);
 
 VALUE gmp_alloc(VALUE klass);
 VALUE gmp_initialize(int argc, VALUE *argv, VALUE self);

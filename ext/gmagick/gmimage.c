@@ -314,3 +314,33 @@ gmi_oil_paint(VALUE self, VALUE radius_arg) {
   gum_check_image_exception(image, status);
   return Qnil;
 }
+
+VALUE
+gmi_cycle_colormap(VALUE self, VALUE displace_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  long displace = NUM2LONG(displace_arg);
+  MagickPassFail status = MagickCycleColormapImage(image, displace);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_solarize(VALUE self, VALUE threshold_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  double threshold = NUM2DBL(threshold_arg);
+  MagickPassFail status = MagickSolarizeImage(image, threshold);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_shear(VALUE self, VALUE pixel_arg, VALUE x_arg, VALUE y_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  PixelWand *pixel = gmu_get_pixel_string_or_pixel(pixel_arg);
+  double x = NUM2DBL(x_arg);
+  double y = NUM2DBL(y_arg);
+  MagickPassFail status = MagickShearImage(image, pixel, x, y);
+  gmu_clear_pixel_string_or_pixel(pixel_arg, pixel);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}

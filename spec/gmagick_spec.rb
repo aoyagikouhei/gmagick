@@ -265,6 +265,42 @@ describe Gmagick::Image do
     expect(image2.format).to eq("PNG")
     expect(image2.count).to eq(1)
   end
+
+  it 'cycle_colormap' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.cycle_colormap(100)
+    image.cycle_colormap(100)
+    image.cycle_colormap(100)
+    image.cycle_colormap(100)
+    image.write(DICE_CYCLE_COLORMAP_PATH)
+    image2 = Gmagick::Image.new(DICE_CYCLE_COLORMAP_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'solarize' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.solarize(100)
+    image.write(DICE_SOLARIZE_PATH)
+    image2 = Gmagick::Image.new(DICE_SOLARIZE_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'shear' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.shear("white", 5, 70)
+    image.write(DICE_SHEAR_PATH)
+    image2 = Gmagick::Image.new(DICE_SHEAR_PATH)
+    expect(image2.width).to eq(207)
+    expect(image2.height).to eq(332)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
 end
 
 describe Gmagick::Pixel do
