@@ -321,10 +321,79 @@ describe Gmagick::Pixel do
       pixel = Gmagick::Pixel.new(1)
     end.should raise_error(TypeError, "no implicit conversion of Fixnum into String")
   end
+
+  it 'color_count' do
+    pixel = Gmagick::Pixel.new("#000000")
+    pixel.color_count = 100
+    expect(pixel.color_count).to eq(100)
+  end
 end
 
 describe Gmagick::Drawing do
   it 'initialize' do
     drawing = Gmagick::Drawing.new
   end
+
+  it 'fill_color' do
+    drawing = Gmagick::Drawing.new
+    drawing.fill_color = "red"
+    pixel = drawing.fill_color
+    expect(pixel.color).to eq("255,0,0")
+    pixel.color = "blue"
+    pixel2 = drawing.fill_color
+    expect(pixel.color).to eq("0,0,255")
+  end
+
+  it 'stroke_color' do
+    drawing = Gmagick::Drawing.new
+    drawing.stroke_color = "red"
+    pixel = drawing.stroke_color
+    expect(pixel.color).to eq("255,0,0")
+    pixel.color = "blue"
+    pixel2 = drawing.stroke_color
+    expect(pixel.color).to eq("0,0,255")
+  end
+
+  it 'stroke_width' do
+    drawing = Gmagick::Drawing.new
+    drawing.stroke_width = 10
+    expect(drawing.stroke_width).to eq(10)
+  end
+
+  it 'font' do
+    drawing = Gmagick::Drawing.new
+    drawing.font = "system"
+    expect(drawing.font).to eq("system")
+  end
+
+  it 'font_family' do
+    drawing = Gmagick::Drawing.new
+    drawing.font_family = "system"
+    expect(drawing.font_family).to eq("system")
+  end
+
+  it 'font_size' do
+    drawing = Gmagick::Drawing.new
+    drawing.font_size = 10
+    expect(drawing.font_size).to eq(10)
+  end
+
+  it 'font_stretch' do
+    drawing = Gmagick::Drawing.new
+    drawing.font_stretch = 10
+    expect(drawing.font_stretch).to eq(10)
+  end
+
+  it 'font_style' do
+    drawing = Gmagick::Drawing.new
+    drawing.font_style = 10
+    expect(drawing.font_style).to eq(10)
+  end
+
+  it 'font_weight' do
+    drawing = Gmagick::Drawing.new
+    drawing.font_weight = 10
+    expect(drawing.font_weight).to eq(10)
+  end
+
 end

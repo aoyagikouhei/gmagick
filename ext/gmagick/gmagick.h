@@ -1,3 +1,6 @@
+#ifndef _GMAGICK_H_
+#define _GMAGICK_H_
+
 #include <stdio.h>
 #include <ruby.h>
 #include <wand/magick_wand.h>
@@ -13,6 +16,13 @@ typedef struct {
 typedef struct {
   DrawingWand* wand;
 } GmDrawing;
+
+extern VALUE Module_Gmagick;
+extern VALUE Class_Image;
+extern VALUE Class_Pixel;
+extern VALUE Class_Drawing;
+
+extern ID id_new;
 
 void gum_check_image_exception(MagickWand *wand, MagickPassFail status);
 MagickWand* gmu_get_image_wand(VALUE self);
@@ -57,18 +67,28 @@ VALUE gmp_alloc(VALUE klass);
 VALUE gmp_initialize(int argc, VALUE *argv, VALUE self);
 VALUE gmp_set_color(VALUE self, VALUE color_arg);
 VALUE gmp_get_color(VALUE self);
+VALUE gmp_set_color_count(VALUE self, VALUE color_count_arg);
+VALUE gmp_get_color_count(VALUE self);
 
 VALUE gmd_alloc(VALUE klass);
 VALUE gmd_initialize(VALUE self);
 VALUE gmd_set_fill_color(VALUE self, VALUE pixel_arg);
+VALUE gmd_get_fill_color(VALUE self);
 VALUE gmd_set_stroke_color(VALUE self, VALUE pixel_arg);
+VALUE gmd_get_stroke_color(VALUE self);
 VALUE gmd_set_stroke_width(VALUE self, VALUE width_arg);
-VALUE gmd_draw_round_rectangle(VALUE self, VALUE x1_arg, VALUE y1_arg, VALUE x2_arg, VALUE y2_arg, VALUE rx_arg, VALUE ry_arg);
-
-
-
-
-
-
-
-
+VALUE gmd_get_stroke_width(VALUE self);
+VALUE gmd_round_rectangle(VALUE self, VALUE x1_arg, VALUE y1_arg, VALUE x2_arg, VALUE y2_arg, VALUE rx_arg, VALUE ry_arg);
+VALUE gmd_set_font(VALUE self, VALUE name_arg);
+VALUE gmd_get_font(VALUE self);
+VALUE gmd_set_font_family(VALUE self, VALUE family_arg);
+VALUE gmd_get_font_family(VALUE self);
+VALUE gmd_set_font_size(VALUE self, VALUE pointsize_arg);
+VALUE gmd_get_font_size(VALUE self);
+VALUE gmd_set_font_stretch(VALUE self, VALUE stretch_arg);
+VALUE gmd_get_font_stretch(VALUE self);
+VALUE gmd_set_font_style(VALUE self, VALUE style_arg);
+VALUE gmd_get_font_style(VALUE self);
+VALUE gmd_set_font_weight(VALUE self, VALUE weight_arg);
+VALUE gmd_get_font_weight(VALUE self);
+#endif
