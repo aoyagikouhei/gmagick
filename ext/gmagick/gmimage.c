@@ -251,4 +251,66 @@ gmi_set_format(VALUE self, VALUE format_arg) {
   return Qnil;
 }
 
+VALUE 
+gmi_border(VALUE self, VALUE pixel_arg, VALUE width_arg, VALUE height_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  PixelWand *pixel = gmu_get_pixel_string_or_pixel(pixel_arg);
+  unsigned long width = NUM2LONG(width_arg);
+  unsigned long height = NUM2LONG(height_arg);
+  MagickPassFail status = MagickBorderImage(image, pixel, width, height);
+  gmu_clear_pixel_string_or_pixel(pixel_arg, pixel);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
 
+VALUE
+gmi_frame(VALUE self, VALUE pixel_arg, VALUE width_arg, VALUE height_arg, VALUE inner_arg, VALUE outer_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  PixelWand *pixel = gmu_get_pixel_string_or_pixel(pixel_arg);
+  unsigned long width = NUM2LONG(width_arg);
+  unsigned long height = NUM2LONG(height_arg);
+  long inner = NUM2LONG(inner_arg);
+  long outer = NUM2LONG(outer_arg);
+  MagickPassFail status = MagickFrameImage(image, pixel, width, height, inner, outer);
+  gmu_clear_pixel_string_or_pixel(pixel_arg, pixel);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_blur(VALUE self, VALUE radius_arg, VALUE sigma_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  double radius = NUM2DBL(radius_arg);
+  double sigma = NUM2DBL(sigma_arg);
+  MagickPassFail status = MagickBlurImage(image, radius, sigma);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_swirl(VALUE self, VALUE degree_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  double degree = NUM2DBL(degree_arg);
+  MagickPassFail status = MagickSwirlImage(image, degree);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_charcoal(VALUE self, VALUE radius_arg, VALUE sigma_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  double radius = NUM2DBL(radius_arg);
+  double sigma = NUM2DBL(sigma_arg);
+  MagickPassFail status = MagickCharcoalImage(image, radius, sigma);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}
+
+VALUE
+gmi_oil_paint(VALUE self, VALUE radius_arg) {
+  MagickWand *image = gmu_get_image_wand(self);
+  double radius = NUM2DBL(radius_arg);
+  MagickPassFail status = MagickOilPaintImage(image, radius);
+  gum_check_image_exception(image, status);
+  return Qnil;
+}

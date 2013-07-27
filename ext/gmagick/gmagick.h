@@ -43,6 +43,13 @@ VALUE gmi_flip(VALUE self);
 VALUE gmi_flop(VALUE self);
 VALUE gmi_crop(VALUE self, VALUE width_arg, VALUE height_arg, VALUE x_arg, VALUE y_arg);
 VALUE gmi_set_format(VALUE self, VALUE format_arg);
+VALUE gmi_border(VALUE self, VALUE pixel_arg, VALUE width_arg, VALUE height_arg);
+VALUE gmi_frame(VALUE self, VALUE pixel_arg, VALUE width_arg, VALUE height_arg, VALUE inner_arg, VALUE outer_arg);
+VALUE gmi_blur(VALUE self, VALUE radius_arg, VALUE sigma_arg);
+VALUE gmi_swirl(VALUE self, VALUE degree_arg);
+VALUE gmi_charcoal(VALUE self, VALUE radius_arg, VALUE sigma_arg);
+VALUE gmi_oil_paint(VALUE self, VALUE radius_arg);
+
 
 VALUE gmp_alloc(VALUE klass);
 VALUE gmp_initialize(int argc, VALUE *argv, VALUE self);

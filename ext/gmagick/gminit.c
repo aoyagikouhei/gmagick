@@ -32,6 +32,12 @@ Init_gmagickn(){
   rb_define_method(cImage, "flop", gmi_flop, 0);
   rb_define_method(cImage, "crop", gmi_crop, 4);
   rb_define_method(cImage, "format=", gmi_set_format, 1);
+  rb_define_method(cImage, "border", gmi_border, 3);
+  rb_define_method(cImage, "frame", gmi_frame, 5);
+  rb_define_method(cImage, "blur", gmi_blur, 2);
+  rb_define_method(cImage, "swirl", gmi_swirl, 1);
+  rb_define_method(cImage, "charcoal", gmi_charcoal, 2);
+  rb_define_method(cImage, "oil_paint", gmi_oil_paint, 1);
 
   cPixel = rb_define_class_under(mGmagick, "Pixel", rb_cObject);
   rb_define_alloc_func(cPixel, gmp_alloc);

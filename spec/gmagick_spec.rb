@@ -199,6 +199,72 @@ describe Gmagick::Image do
     expect(image2.format).to eq("JPEG")
     expect(image2.count).to eq(1)
   end
+
+  it 'border' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.border("blue", 4, 15)
+    image.write(DICE_BORDER_PATH)
+    image2 = Gmagick::Image.new(DICE_BORDER_PATH)
+    expect(image2.width).to eq(208)
+    expect(image2.height).to eq(180)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'frame' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.frame("silver", 20, 20, 5, 5)
+    image.write(DICE_FRAME_PATH)
+    image2 = Gmagick::Image.new(DICE_FRAME_PATH)
+    expect(image2.width).to eq(240)
+    expect(image2.height).to eq(190)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'frame' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.blur(8, 3)
+    image.write(DICE_BLUR_PATH)
+    image2 = Gmagick::Image.new(DICE_BLUR_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'swirl' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.swirl(180)
+    image.write(DICE_SWIRL_PATH)
+    image2 = Gmagick::Image.new(DICE_SWIRL_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'charcoal' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.charcoal(5, 0.2)
+    image.write(DICE_CHARCOAL_PATH)
+    image2 = Gmagick::Image.new(DICE_CHARCOAL_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
+
+  it 'oil_paint' do
+    image = Gmagick::Image.new(DICE_PATH)
+    image.oil_paint(2.5)
+    image.write(DICE_OIL_PAINT_PATH)
+    image2 = Gmagick::Image.new(DICE_OIL_PAINT_PATH)
+    expect(image2.width).to eq(200)
+    expect(image2.height).to eq(150)
+    expect(image2.format).to eq("PNG")
+    expect(image2.count).to eq(1)
+  end
 end
 
 describe Gmagick::Pixel do
