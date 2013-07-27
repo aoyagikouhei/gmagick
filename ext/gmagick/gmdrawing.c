@@ -58,6 +58,20 @@ gmd_get_fill_color(VALUE self) {
   return pixel_value;
 }
 
+VALUE
+gmd_set_fill_opacity(VALUE self, VALUE opacity_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double opacity = NUM2DBL(opacity_arg);
+  DrawSetFillOpacity(drawing, opacity);
+  return Qnil;
+}
+
+VALUE
+gmd_get_fill_opacity(VALUE self) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  return DBL2NUM(DrawGetFillOpacity(drawing));
+}
+
 VALUE gmd_set_stroke_color(VALUE self, VALUE pixel_arg) {
   DrawingWand *drawing = gmu_get_drawing_wand(self);
   PixelWand *pixel =  gmu_get_pixel_string_or_pixel(pixel_arg);
@@ -73,6 +87,20 @@ gmd_get_stroke_color(VALUE self) {
   PixelWand *pixel = gmu_get_pixel_wand(pixel_value);
   DrawGetStrokeColor(drawing, pixel);
   return pixel_value;
+}
+
+VALUE
+gmd_set_stroke_opacity(VALUE self, VALUE opacity_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double opacity = NUM2DBL(opacity_arg);
+  DrawSetStrokeOpacity(drawing, opacity);
+  return Qnil;
+}
+
+VALUE
+gmd_get_stroke_opacity(VALUE self) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  return DBL2NUM(DrawGetStrokeOpacity(drawing));
 }
 
 VALUE 

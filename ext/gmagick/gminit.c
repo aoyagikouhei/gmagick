@@ -57,6 +57,8 @@ Init_gmagickn(){
   rb_define_private_method(Class_Drawing, "initialize", gmd_initialize, 0);
   rb_define_method(Class_Drawing, "fill_color=", gmd_set_fill_color, 1);
   rb_define_method(Class_Drawing, "fill_color", gmd_get_fill_color, 0);
+  rb_define_method(Class_Drawing, "fill_opacity=", gmd_set_fill_opacity, 1);
+  rb_define_method(Class_Drawing, "fill_opacity", gmd_get_fill_opacity, 0);
   rb_define_method(Class_Drawing, "font=", gmd_set_font, 1);
   rb_define_method(Class_Drawing, "font", gmd_get_font, 0);
   rb_define_method(Class_Drawing, "font_family=", gmd_set_font_family, 1);
@@ -72,6 +74,8 @@ Init_gmagickn(){
   rb_define_method(Class_Drawing, "round_rectangle", gmd_round_rectangle, 6);
   rb_define_method(Class_Drawing, "stroke_color=", gmd_set_stroke_color, 1);
   rb_define_method(Class_Drawing, "stroke_color", gmd_get_stroke_color, 0);
+  rb_define_method(Class_Drawing, "stroke_opacity=", gmd_set_stroke_opacity, 1);
+  rb_define_method(Class_Drawing, "stroke_opacity", gmd_get_stroke_opacity, 0);
   rb_define_method(Class_Drawing, "stroke_width=", gmd_set_stroke_width, 1);
   rb_define_method(Class_Drawing, "stroke_width", gmd_get_stroke_width, 0);
 

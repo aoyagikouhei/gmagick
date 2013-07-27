@@ -8,6 +8,9 @@ end
 
 describe Gmagick::Image do
   before(:all) do
+    if !File.exists?(DST_PATH)
+      Dir.mkdir(DST_PATH)
+    end
     Dir::glob(DST_PATH + "/*.{jpg,png,gif}").each do |f|
       File.delete(f)
     end
@@ -344,6 +347,12 @@ describe Gmagick::Drawing do
     expect(pixel.color).to eq("0,0,255")
   end
 
+  it 'fill_opacity' do
+    drawing = Gmagick::Drawing.new
+    drawing.fill_opacity = 0.5
+    expect(drawing.fill_opacity.round(1)).to eq(0.5)
+  end
+
   it 'stroke_color' do
     drawing = Gmagick::Drawing.new
     drawing.stroke_color = "red"
@@ -352,6 +361,12 @@ describe Gmagick::Drawing do
     pixel.color = "blue"
     pixel2 = drawing.stroke_color
     expect(pixel.color).to eq("0,0,255")
+  end
+
+  it 'stroke_opacity' do
+    drawing = Gmagick::Drawing.new
+    drawing.stroke_opacity = 0.5
+    expect(drawing.stroke_opacity.round(1)).to eq(0.5)
   end
 
   it 'stroke_width' do
