@@ -212,3 +212,31 @@ gmd_get_font_weight(VALUE self) {
   DrawingWand *drawing = gmu_get_drawing_wand(self);
   return LONG2NUM(DrawGetFontWeight(drawing));
 }
+
+VALUE
+gmd_set_text_decoration(VALUE self, VALUE decoration_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  unsigned long decoration = NUM2LONG(decoration_arg);
+  DrawSetTextDecoration(drawing, decoration);
+  return Qnil;
+}
+
+VALUE
+gmd_get_text_decoration(VALUE self) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  return LONG2NUM(DrawGetTextDecoration(drawing));
+}
+
+VALUE
+gmd_set_text_encoding(VALUE self, VALUE encoding_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  char *encoding = StringValuePtr(encoding_arg);
+  DrawSetTextEncoding(drawing, encoding);
+  return Qnil;
+}
+
+VALUE
+gmd_get_text_encoding(VALUE self) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  return rb_str_new2(DrawGetTextEncoding(drawing));
+}

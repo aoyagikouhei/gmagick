@@ -411,4 +411,16 @@ describe Gmagick::Drawing do
     expect(drawing.font_weight).to eq(10)
   end
 
+  it 'text_decoration' do
+    drawing = Gmagick::Drawing.new
+    drawing.text_decoration = 2
+    expect(drawing.text_decoration).to eq(2)
+  end
+
+  it 'text_encoding' do
+    drawing = Gmagick::Drawing.new
+    drawing.text_encoding = "UTF-8"
+    expect(drawing.text_encoding).to eq("UTF-8")
+  end
+
 end

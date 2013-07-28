@@ -95,4 +95,8 @@ VALUE gmd_set_font_style(VALUE self, VALUE style_arg);
 VALUE gmd_get_font_style(VALUE self);
 VALUE gmd_set_font_weight(VALUE self, VALUE weight_arg);
 VALUE gmd_get_font_weight(VALUE self);
+VALUE gmd_set_text_decoration(VALUE self, VALUE decoration_arg);
+VALUE gmd_get_text_decoration(VALUE self);
+VALUE gmd_set_text_encoding(VALUE self, VALUE encoding_arg);
+VALUE gmd_get_text_encoding(VALUE self);
 #endif

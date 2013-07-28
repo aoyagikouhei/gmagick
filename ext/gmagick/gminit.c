@@ -78,6 +78,11 @@ Init_gmagickn(){
   rb_define_method(Class_Drawing, "stroke_opacity", gmd_get_stroke_opacity, 0);
   rb_define_method(Class_Drawing, "stroke_width=", gmd_set_stroke_width, 1);
   rb_define_method(Class_Drawing, "stroke_width", gmd_get_stroke_width, 0);
+  rb_define_method(Class_Drawing, "text_decoration=", gmd_set_text_decoration, 1);
+  rb_define_method(Class_Drawing, "text_decoration", gmd_get_text_decoration, 0);
+  rb_define_method(Class_Drawing, "text_encoding=", gmd_set_text_encoding, 1);
+  rb_define_method(Class_Drawing, "text_encoding", gmd_get_text_encoding, 0);
+
 
   id_new = rb_intern("new");
 }
