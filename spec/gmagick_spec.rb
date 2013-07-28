@@ -423,4 +423,18 @@ describe Gmagick::Drawing do
     expect(drawing.text_encoding).to eq("UTF-8")
   end
 
+  it 'annotation' do
+    execute_draw(DRAW_ANNOTATION_PATH) do |drawing|
+      drawing.font = "Osaka"
+      drawing.font_style = 1
+      drawing.font_size = 32
+      drawing.font_weight = 400
+      drawing.fill_color = "black"
+      drawing.stroke_color = "black"
+      drawing.text_encoding = "UTF-8"
+      drawing.annotation(30, 30, "Hello World")
+      
+      #drawing.round_rectangle(10, 10, 100, 100, 100, 100)
+    end
+  end
 end

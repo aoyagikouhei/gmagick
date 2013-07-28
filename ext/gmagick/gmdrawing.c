@@ -41,6 +41,16 @@ gmd_initialize(VALUE self) {
 }
 
 VALUE
+gmd_annotation(VALUE self, VALUE x_arg, VALUE y_arg, VALUE text_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double x = NUM2DBL(x_arg);
+  double y = NUM2DBL(y_arg);
+  char* text = StringValuePtr(text_arg);
+  DrawAnnotation(drawing, 50, 50, (unsigned char*)text);
+  return Qnil;
+}
+
+VALUE
 gmd_set_fill_color(VALUE self, VALUE pixel_arg) {
   DrawingWand *drawing = gmu_get_drawing_wand(self);
   PixelWand *pixel =  gmu_get_pixel_string_or_pixel(pixel_arg);

@@ -72,6 +72,7 @@ VALUE gmp_get_color_count(VALUE self);
 
 VALUE gmd_alloc(VALUE klass);
 VALUE gmd_initialize(VALUE self);
+VALUE gmd_annotation(VALUE self, VALUE x_arg, VALUE y_arg, VALUE text_arg);
 VALUE gmd_set_fill_color(VALUE self, VALUE pixel_arg);
 VALUE gmd_get_fill_color(VALUE self);
 VALUE gmd_set_fill_opacity(VALUE self, VALUE opacity_arg);
