@@ -433,8 +433,15 @@ describe Gmagick::Drawing do
       drawing.stroke_color = "black"
       drawing.text_encoding = "UTF-8"
       drawing.annotation(30, 30, "Hello World")
-      
-      #drawing.round_rectangle(10, 10, 100, 100, 100, 100)
+    end
+  end
+
+  it 'arc' do
+    execute_draw(DRAW_ARC_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.arc(10, 10, 100, 100, 0, 180)
     end
   end
 end

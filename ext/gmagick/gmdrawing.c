@@ -250,3 +250,23 @@ gmd_get_text_encoding(VALUE self) {
   DrawingWand *drawing = gmu_get_drawing_wand(self);
   return rb_str_new2(DrawGetTextEncoding(drawing));
 }
+
+VALUE
+gmd_arc(VALUE self, VALUE sx_arg, VALUE sy_arg, VALUE ex_arg, VALUE ey_arg, VALUE sd_arg, VALUE ed_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double sx = NUM2DBL(sx_arg);
+  double sy = NUM2DBL(sy_arg);
+  double ex = NUM2DBL(ex_arg);
+  double ey = NUM2DBL(ey_arg);
+  double sd = NUM2DBL(sd_arg);
+  double ed = NUM2DBL(ed_arg);
+  DrawArc(drawing, sx, sy, ex, ey, sd, ed);
+  return Qnil;
+}
+
+VALUE
+gmd_bezier(VALUE self, VALUE points_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  
+  return Qnil;
+}

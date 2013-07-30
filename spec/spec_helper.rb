@@ -24,6 +24,7 @@ DICE_CYCLE_COLORMAP_PATH = DST_PATH + '/dice_cycle_colormap.png'
 DICE_SOLARIZE_PATH = DST_PATH + '/dice_solarize.png'
 DICE_SHEAR_PATH = DST_PATH + '/dice_shear.png'
 DRAW_ANNOTATION_PATH = DST_PATH + '/dice_draw_annotation.png'
+DRAW_ARC_PATH = DST_PATH + '/dice_draw_arc.png'
 
 def execute_draw(path)
   image = Gmagick::Image.new(DICE_PATH)
