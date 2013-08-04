@@ -25,6 +25,11 @@ DICE_SOLARIZE_PATH = DST_PATH + '/dice_solarize.png'
 DICE_SHEAR_PATH = DST_PATH + '/dice_shear.png'
 DRAW_ANNOTATION_PATH = DST_PATH + '/dice_draw_annotation.png'
 DRAW_ARC_PATH = DST_PATH + '/dice_draw_arc.png'
+DRAW_CIRCLE_PATH = DST_PATH + '/dice_draw_circle.png'
+DRAW_ELLIPSE_PATH = DST_PATH + '/dice_draw_ellipse.png'
+DRAW_LINE_PATH = DST_PATH + '/dice_draw_line.png'
+DRAW_POINT_PATH = DST_PATH + '/dice_draw_point.png'
+DRAW_RECTANGLE_PATH = DST_PATH + '/dice_draw_rectangle.png'
 
 def execute_draw(path)
   image = Gmagick::Image.new(DICE_PATH)

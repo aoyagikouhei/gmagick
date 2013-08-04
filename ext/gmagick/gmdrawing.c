@@ -267,6 +267,79 @@ gmd_arc(VALUE self, VALUE sx_arg, VALUE sy_arg, VALUE ex_arg, VALUE ey_arg, VALU
 VALUE
 gmd_bezier(VALUE self, VALUE points_arg) {
   DrawingWand *drawing = gmu_get_drawing_wand(self);
-  
+  return Qnil;
+}
+
+VALUE gmd_circle(VALUE self, VALUE ox_arg, VALUE oy_arg, VALUE px_arg, VALUE py_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double ox = NUM2DBL(ox_arg);
+  double oy = NUM2DBL(oy_arg);
+  double px = NUM2DBL(px_arg);
+  double py = NUM2DBL(py_arg);
+  DrawCircle(drawing, ox, oy, px, py);
+  return Qnil;
+}
+
+VALUE gmd_ellipse(int argc, VALUE *argv, VALUE self) {
+  if ((argc < 4) || (argc > 6)) {
+    rb_raise(rb_eArgError, "wrong number of arguments (%d for 4 or 6)", argc);
+  }
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double ox = NUM2DBL(argv[0]);
+  double oy = NUM2DBL(argv[1]);
+  double rx = NUM2DBL(argv[2]);
+  double ry = NUM2DBL(argv[3]);
+  double start = 0;
+  double end = 0;
+  if (argc > 4) {
+    start = NUM2DBL(argv[4]);
+  }
+  if (argc > 5) {
+    end = NUM2DBL(argv[5]);
+  }
+  DrawEllipse(drawing, ox, oy, rx, ry, start, end);
+  return Qnil;
+}
+
+VALUE gmd_line(VALUE self, VALUE sx_arg, VALUE sy_arg, VALUE ex_arg, VALUE ey_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double sx = NUM2DBL(sx_arg);
+  double sy = NUM2DBL(sy_arg);
+  double ex = NUM2DBL(ex_arg);
+  double ey = NUM2DBL(ey_arg);
+  DrawLine(drawing, sx, sy, ex, ey);
+  return Qnil;
+}
+
+VALUE gmd_point(VALUE self, VALUE x_arg, VALUE y_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double x = NUM2DBL(x_arg);
+  double y = NUM2DBL(y_arg);
+  DrawPoint(drawing, x, y);
+  return Qnil;
+}
+
+VALUE gmd_rectangle(VALUE self, VALUE x1_arg, VALUE y1_arg, VALUE x2_arg, VALUE y2_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double x1 = NUM2DBL(x1_arg);
+  double y1 = NUM2DBL(y1_arg);
+  double x2 = NUM2DBL(x2_arg);
+  double y2 = NUM2DBL(y2_arg);
+  DrawRectangle(drawing, x1, y1, x2, y2);
+  return Qnil;
+}
+
+VALUE gmd_rotate(VALUE self, VALUE degree_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double degree = NUM2DBL(degree_arg);
+  DrawRotate(drawing, degree);
+  return Qnil;
+}
+
+VALUE gmd_scale(VALUE self, VALUE x_arg, VALUE y_arg) {
+  DrawingWand *drawing = gmu_get_drawing_wand(self);
+  double x = NUM2DBL(x_arg);
+  double y = NUM2DBL(y_arg);
+  DrawScale(drawing, x, y);
   return Qnil;
 }

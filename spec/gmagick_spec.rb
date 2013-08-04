@@ -444,4 +444,53 @@ describe Gmagick::Drawing do
       drawing.arc(10, 10, 100, 100, 0, 180)
     end
   end
+
+  it 'circle' do
+    execute_draw(DRAW_CIRCLE_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.circle(50, 50, 1, 80)
+    end
+  end
+
+  it 'ellipse' do
+    execute_draw(DRAW_ELLIPSE_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.ellipse(100, 75, 50, 50, 0, 0)
+    end
+  end
+
+  it 'line' do
+    execute_draw(DRAW_LINE_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.line(10, 10, 50, 50)
+    end
+  end
+
+  it 'point' do
+    execute_draw(DRAW_POINT_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.point(10, 50)
+      drawing.point(11, 50)
+      drawing.point(12, 50)
+    end
+  end
+
+  it 'rectangle' do
+    execute_draw(DRAW_RECTANGLE_PATH) do |drawing|
+      drawing.fill_color = "black"
+      drawing.stroke_color = "red"
+      drawing.stroke_width = 3
+      drawing.rectangle(50, 20, 130, 80)
+      drawing.rotate(30)
+      drawing.scale(1, 2)
+    end
+  end
 end

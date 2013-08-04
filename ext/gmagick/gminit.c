@@ -57,6 +57,13 @@ Init_gmagickn(){
   rb_define_private_method(Class_Drawing, "initialize", gmd_initialize, 0);
   rb_define_method(Class_Drawing, "annotation", gmd_annotation, 3);
   rb_define_method(Class_Drawing, "arc", gmd_arc, 6);
+  rb_define_method(Class_Drawing, "circle", gmd_circle, 4);
+  rb_define_method(Class_Drawing, "ellipse", gmd_ellipse, -1);
+  rb_define_method(Class_Drawing, "line", gmd_line, 4);
+  rb_define_method(Class_Drawing, "point", gmd_point, 2);
+  rb_define_method(Class_Drawing, "rectangle", gmd_rectangle, 4);
+  rb_define_method(Class_Drawing, "rotate", gmd_rotate, 1);
+  rb_define_method(Class_Drawing, "scale", gmd_scale, 2);
   rb_define_method(Class_Drawing, "fill_color=", gmd_set_fill_color, 1);
   rb_define_method(Class_Drawing, "fill_color", gmd_get_fill_color, 0);
   rb_define_method(Class_Drawing, "fill_opacity=", gmd_set_fill_opacity, 1);
