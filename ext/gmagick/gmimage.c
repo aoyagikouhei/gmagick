@@ -123,7 +123,7 @@ gmi_get_resolution(VALUE self) {
   double y;
   MagickPassFail status = MagickGetImageResolution(wand, &x, &y);
   gum_check_image_exception(wand, status);
-  VALUE ary = rb_ary_new2(2);
+  VALUE ary = rb_ary_new();
   rb_ary_push(ary, DBL2NUM(x));
   rb_ary_push(ary, DBL2NUM(y));
   return ary;
