@@ -27,3 +27,10 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Changes
+2014-07-17 0.0.2
+modify homepage
+
+2014-07-15 0.0.1
+first release

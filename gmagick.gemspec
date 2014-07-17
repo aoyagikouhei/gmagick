@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["aoyagi.kouhei@gmail.com"]
   spec.description   = %q{GraphicsMagick C extension}
   spec.summary       = %q{GraphicsMagick C extension}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/aoyagikouhei/gmagick"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
