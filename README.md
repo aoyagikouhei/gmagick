@@ -29,6 +29,9 @@ TODO: Write usage instructions here
 5. Create new Pull Request
 
 ## Changes
+2014-07-22 0.0.3
+remove pie from GraphicsMagickWand-config ldflags
+
 2014-07-17 0.0.2
 modify homepage
 
